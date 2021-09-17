@@ -1,0 +1,14 @@
+.add-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__inner {
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 3rem;
+    width: 40rem;
+    background: white;
+    padding: 3rem;
+    border: none;
+  }
+}

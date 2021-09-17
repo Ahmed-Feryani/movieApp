@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import AddModal from "./components/AddModal/AddModal";
+import Header from "./components/Header/Header";
+import MovieList from "./components/MovieList/MovieList";
+import Navigation from "./components/Navigation/Navigation";
+import { list } from "./moviesList";
 
 function App() {
+  const [movies, setMovies] = useState(list);
+  const [filterText, setFilterText] = useState("");
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [filterRating, setFilterRating] = useState(0);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmit = (values, resetForm) => {
+    const list = [...movies];
+    list.push({
+      ...values,
+      rating,
+    });
+    setMovies(list);
+    resetForm();
+    handleClose();
+    setRating(0);
+    setFilterText("");
+    setFilterRating(0);
+  };
+  const handleChange = (e) => {
+    const text = e.target.value.toLowerCase();
+    setFilterText(text);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navigation handleOpen={handleOpen} />
+      <AddModal
+        handleClose={handleClose}
+        handleSubmit={handleSubmit}
+        open={open}
+        rating={rating}
+        setRating={setRating}
+      />
+      <Header
+        handleChange={handleChange}
+        filterText={filterText}
+        filterRating={filterRating}
+        setFilterRating={setFilterRating}
+      />
+      <MovieList
+        movies={movies}
+        filterText={filterText}
+        filterRating={filterRating}
+      />
     </div>
   );
 }
