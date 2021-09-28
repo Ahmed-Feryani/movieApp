@@ -1,8 +1,11 @@
 import React from "react";
 import MovieCard from "./MovieCard/MovieCard";
 import "./style.scss";
+import { useHistory } from "react-router-dom";
 
 const MovieList = ({ movies, filterText, filterRating }) => {
+  const history = useHistory();
+
   return (
     <div className="container">
       <ul className="movies">
@@ -13,7 +16,11 @@ const MovieList = ({ movies, filterText, filterRating }) => {
           )
           .map((movie, index) => {
             return (
-              <li className="movies__item" key={index}>
+              <li
+                className="movies__item"
+                key={index}
+                onClick={() => history.push(`${movie.id}`)}
+              >
                 <MovieCard movie={movie}></MovieCard>
               </li>
             );

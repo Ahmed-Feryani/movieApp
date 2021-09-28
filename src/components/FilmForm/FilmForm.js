@@ -9,16 +9,17 @@ const INITIAL_STATE = {
   title: "",
   cover: "",
   description: "",
+  trailer: "",
 };
 
 const FORM_VALIDATION = Yup.object().shape({
   title: Yup.string().required("title is required"),
   cover: Yup.string().required("cover is required").url("fill a valid url"),
   description: Yup.string().required("description is required"),
+  trailer: Yup.string().required("cover is required").url("fill a valid url"),
 });
 
 const FilmForm = ({ handleSubmit, handleClose, rating, setRating }) => {
-  console.log(handleSubmit);
   return (
     <div className="film-form">
       <Formik
@@ -40,12 +41,18 @@ const FilmForm = ({ handleSubmit, handleClose, rating, setRating }) => {
                 placeholder="Enter Movie Cover"
               />
               <EntryText
+                name="trailer"
+                label="Trailer"
+                placeholder="Enter Movie Trailer"
+              />
+              <EntryText
                 multiline
                 rows={4}
                 name="description"
                 label="Description"
                 placeholder="Enter Movie Description"
-              />
+              />  
+              
               <Rating
                 className="film-form__rating"
                 name="simple-controlled"

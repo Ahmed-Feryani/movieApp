@@ -1,61 +1,22 @@
 import { useState } from "react";
-import AddModal from "./components/AddModal/AddModal";
-import Header from "./components/Header/Header";
-import MovieList from "./components/MovieList/MovieList";
-import Navigation from "./components/Navigation/Navigation";
+import { Switch, Route } from "react-router-dom";
+
 import { list } from "./moviesList";
+import Home from "./Pages/Home/Home";
+import MovieDescription from "./Pages/MovieDescription/MovieDescription";
 
 function App() {
   const [movies, setMovies] = useState(list);
-  const [filterText, setFilterText] = useState("");
-  const [open, setOpen] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [filterRating, setFilterRating] = useState(0);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleSubmit = (values, resetForm) => {
-    const list = [...movies];
-    list.push({
-      ...values,
-      rating,
-    });
-    setMovies(list);
-    resetForm();
-    handleClose();
-    setRating(0);
-    setFilterText("");
-    setFilterRating(0);
-  };
-  const handleChange = (e) => {
-    const text = e.target.value.toLowerCase();
-    setFilterText(text);
-  };
   return (
     <div className="App">
-      <Navigation handleOpen={handleOpen} />
-      <AddModal
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-        open={open}
-        rating={rating}
-        setRating={setRating}
-      />
-      <Header
-        handleChange={handleChange}
-        filterText={filterText}
-        filterRating={filterRating}
-        setFilterRating={setFilterRating}
-      />
-      <MovieList
-        movies={movies}
-        filterText={filterText}
-        filterRating={filterRating}
-      />
+      <Switch>
+        <Route path="/" exact>
+          <Home movies={movies} setMovies={setMovies}></Home>
+        </Route>
+        <Route path="/:id" exact>
+          <MovieDescription MovieList={movies}></MovieDescription>
+        </Route>
+      </Switch>
     </div>
   );
 }

@@ -1,0 +1,32 @@
+.MovieDescription {
+    margin-bottom: 4rem;
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1.6rem;
+    margin-top: 4rem;
+    line-height: 2;
+    margin-bottom: 4rem;
+  }
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  margin: 4rem 0;
+  width: fit-content;
+  &:hover {
+    cursor: pointer;
+  }
+  svg {
+    font-size: 3rem;
+    margin-right: 1rem;
+  }
+}
+.vid {
+  width: 100%;
+  height: 60vh;
+}
